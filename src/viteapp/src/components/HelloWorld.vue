@@ -11,6 +11,8 @@ const count = ref(0)
 <template>
   <h1>{{ msg }}</h1>
 
+  <h3>【TEST】APIサーバーのルートから受け取ったメッセージ: {{ apiMessage }}</h3>
+
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>
@@ -32,6 +34,29 @@ const count = ref(0)
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
+
+<script>
+  export default {
+    data() {
+        return {
+            apiMessage: '',
+        };
+    },
+    methods: {
+      // APIサーバーのルートからのメッセージを受け取る
+      getRootMessage() {
+        this.axios.get("/").then((response) => {
+          console.log(response.data);
+          this.apiMessage = response.data["Message"];
+        });
+      }
+    },
+    mounted() {
+      this.getRootMessage();
+    }
+  }
+
+</script>
 
 <style scoped>
 .read-the-docs {
