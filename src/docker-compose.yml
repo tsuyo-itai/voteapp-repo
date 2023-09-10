@@ -1,0 +1,22 @@
+services:
+
+  webapi:
+    container_name: "fastapi_voteapp_webapi"
+    build:
+      context: ./fastapiapp
+    image: fastapi_image
+    volumes:
+      - ./fastapiapp:/fastapiapp
+    ports:
+      - 8000:8000
+
+  frontend:
+    container_name: "vite_voteapp_frontend"
+    build:
+      context: ./viteapp
+    image: vite_image
+    volumes:
+      - ./viteapp:/viteapp
+    ports:
+      - 5173:5173 # 本番で動かす際はコメントアウト
+    tty: true
