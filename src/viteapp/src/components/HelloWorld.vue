@@ -13,6 +13,11 @@ const count = ref(0)
 
   <h3>【TEST】APIサーバーのルートから受け取ったメッセージ: {{ apiMessage }}</h3>
 
+  <button v-on:click="postTestModel">Create TestModel</button>
+
+  <p v-if="createTestModelId !== ''">id: {{ createTestModelId }} を作成しました</p>
+
+
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>
@@ -40,6 +45,7 @@ const count = ref(0)
     data() {
         return {
             apiMessage: '',
+            createTestModelId: '',
         };
     },
     methods: {
@@ -49,6 +55,16 @@ const count = ref(0)
           console.log(response.data);
           this.apiMessage = response.data["Message"];
         });
+      },
+      postTestModel() {
+        this.axios.post("/api/test", {
+          title: 'vite post',
+          description: 'create test document from vite'
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.createTestModelId = response.data["id"]
+        })
       }
     },
     mounted() {
