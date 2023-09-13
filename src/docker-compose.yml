@@ -9,6 +9,8 @@ services:
       - ./fastapiapp:/fastapiapp
     ports:
       - 8000:8000
+    depends_on:
+      - db
 
   frontend:
     container_name: "vite_voteapp_frontend"
@@ -20,3 +22,18 @@ services:
     ports:
       - 5173:5173 # 本番で動かす際はコメントアウト
     tty: true
+
+  db:
+    image: mongo:latest
+    container_name: mongodb_voteapp_db
+    ports:
+      - "27017:27017"
+    environment:
+      # TODO envファイルで管理
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    # volumes:
+      # - mongodb_data:/data/db
+
+# volumes:
+  # mongodb_data:

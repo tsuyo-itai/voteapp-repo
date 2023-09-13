@@ -24,6 +24,12 @@ docker-compose up -d
 
 [http://localhost:8000/](http://localhost:8000/)で環境へアクセス可能
 
+#### APIのテスト実行
+APIのテストおよび実行はSwagger上で行う
+
+[http://localhost:8000/docs](http://localhost:8000/docs)でAPI仕様書へ  
+(ここからAPI実行可能)
+
 #### vite環境を立ち上げる場合
 
 事前にローカルの環境で`npm install`を行っておくか以下のコマンドでdocker環境内に`npm install`を反映させておく
@@ -52,4 +58,18 @@ docker-compose exec webapi /bin/bash
 # vue(vite)環境
 docker-compose exec frontend /bin/bash
 
+```
+
+## API設計ポリシー
+
+### ディレクトリ階層と役割
+
+```text
+fastapiapp
+├── routers // API階層管理
+│   └── route_xxx.py // API階層ごとに作成
+├── schemas // モデル管理
+│   └── xxx.py // モデルごとに管理
+├── database.py // データベース設定管理
+└── main.py // エントリーポイント
 ```
