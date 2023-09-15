@@ -27,8 +27,12 @@ docker-compose up -d
 #### APIのテスト実行
 APIのテストおよび実行はSwagger上で行う
 
-[http://localhost:8000/docs](http://localhost:8000/docs)でAPI仕様書へ  
+[http://localhost:8000/docs](http://localhost:8000/docs)でAPI仕様書(SwaggerUI)へ  
 (ここからAPI実行可能)
+
+他にもredocでAPI仕様の確認もできる
+
+[http://localhost:8000/redoc](http://localhost:8000/redoc)
 
 #### vite環境を立ち上げる場合
 
