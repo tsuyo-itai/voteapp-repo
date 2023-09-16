@@ -17,6 +17,9 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-@app.get("/")
+@app.get("/", summary="rootアクセス時の応答メッセージ")
 async def root():
+    """
+    例えばここにAPIの詳細情報を書いていく
+    """
     return {"Message":"Hello world"}
