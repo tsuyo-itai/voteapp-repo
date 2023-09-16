@@ -18,13 +18,13 @@ async def hello():
 
 
 # PollModel 一覧取得
-@api_v1_router.get("/api/v1/polls", response_model=List[PollModelOutput])
+@api_v1_router.get("/api/v1/polls", summary="PollModelの一覧を取得します", response_model=List[PollModelOutput])
 async def get_polls(request: Request):
     res = await db_get_polls()
     return res
 
 # PollModel作成
-@api_v1_router.post("/api/v1/polls", response_model=PollModelOutput)
+@api_v1_router.post("/api/v1/polls", summary="PollModelを1件新規作成します", response_model=PollModelOutput)
 async def create_poll(request: Request, response: Response, data: PollModel):
     poll = jsonable_encoder(data)
     res = await db_create_poll(poll)
@@ -35,13 +35,13 @@ async def create_poll(request: Request, response: Response, data: PollModel):
         status_code=404, detail="Create poll failed!")
 
 # PollChoiceModel 一覧取得
-@api_v1_router.get("/api/v1/choices", response_model=List[PollChoiceModelOutput])
+@api_v1_router.get("/api/v1/choices", summary="PollChoiceModelの一覧を取得します", response_model=List[PollChoiceModelOutput])
 async def get_choices(request: Request):
     res = await db_get_choices()
     return res
 
 # PollChoiceModel作成
-@api_v1_router.post("/api/v1/choices", response_model=PollChoiceModelOutput)
+@api_v1_router.post("/api/v1/choices", summary="PollChoiceModelを1件新規作成します", response_model=PollChoiceModelOutput)
 async def create_choice(request: Request, response: Response, data: PollChoiceModel):
     choice = jsonable_encoder(data)
     res = await db_create_choice(choice)
