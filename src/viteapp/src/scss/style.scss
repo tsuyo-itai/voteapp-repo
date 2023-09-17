@@ -1,7 +1,52 @@
+//* ヘッダー 関連 */
+
+header {
+    background-color: #333; /* 背景色 */
+    height: 60px; /* 高さ */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* 左右のパディング */
+    color: #fff; /* テキスト色 */
+  }
+  
+  /* ヘッダー内のロゴまたはタイトルのスタイル */
+  .header-logo {
+    font-size: 24px; /* フォントサイズ */
+    font-weight: bold; /* フォントの太さ */
+    text-decoration: none; /* 下線を削除 */
+    color: #fff; /* ロゴのテキスト色 */
+  }
+  
+  /* ナビゲーションメニューのスタイル */
+  .nav-menu {
+    list-style: none; /* リストスタイルを削除 */
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: inline-block; /* メニュー項目を横並びに配置 */
+        margin-right: 20px; /* メニュー項目間の間隔 */
+    }
+
+    a {
+        text-decoration: none; /* 下線を削除 */
+        color: #fff; /* メニューリンクのテキスト色 */
+        font-weight: bold; /* メニューリンクのフォントの太さ */
+        font-size: 16px; /* メニューリンクのフォントサイズ */
+
+        &:hover {
+            color: #33a3a4; /* ホバー時のテキスト色 */
+        }
+    }
+  }
+
+//* 投票一覧カード 関連 */
+
 .card-poll-list {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 20px;
+    margin: 20px 40px;
     border-radius: 10px;
     overflow: hidden;
     position: relative; /* 親要素を相対位置指定 */
@@ -39,6 +84,7 @@
     margin: 10px;
 }
 
+//* 投票一覧パーツ 関連 */
 
 .pollbar-container {
     width: 360px;
@@ -56,4 +102,36 @@
 .pollbar-segment-2 {
     background-color: #e74c3c;
     height: 100%;
+}
+
+//* 投票作成カード 関連 */
+
+.card-poll-edit {
+    padding: 5px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px 40px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative; /* 親要素を相対位置指定 */
+}
+
+.card-poll-inputblock {
+    padding: 0 10px;
+    h3 {
+        margin: 5px;
+        margin-left: 18px;
+        text-align: left; /* 左寄せ */
+        left:10px;
+    }
+}
+
+.poll-input {
+    font-size: 18px;
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 2px solid #33a3a4;
+    border-radius: 5px;
+
 }
