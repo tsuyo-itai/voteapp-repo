@@ -1,0 +1,59 @@
+.card-poll-list {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative; /* 親要素を相対位置指定 */
+
+    h2 {
+        font-size: 18px;
+        margin: 0;
+        text-align: left; /* 左寄せ */
+    }
+
+    p {
+        font-size: 14px;
+        margin: 0;
+        padding: 10px; /* 必要に応じて余白を設定 */
+        text-align: center; /* テキストを中央揃えにする */
+        flex: 1; /* 幅を均等に分割する */
+    }
+
+    p.bold {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+}
+
+.card-content-poll-list {
+    padding: 10px;
+}
+
+.card-content-wrapper-poll-list {
+    background-color: #FFF;
+    display: flex; /* Flexbox を有効にする */
+    flex-direction: row; /* 要素を横に並べる */
+    align-items: center; /* 縦 中央揃え */
+    margin: 10px;
+}
+
+
+.pollbar-container {
+    width: 360px;
+    height: 20px;
+    background-color: #ccc;
+    margin: 0 auto; /* 中央揃え */
+    display: flex;
+  }
+  
+.pollbar-segment-1 {
+    background-color: #3498db;
+    height: 100%;
+}
+  
+.pollbar-segment-2 {
+    background-color: #e74c3c;
+    height: 100%;
+}

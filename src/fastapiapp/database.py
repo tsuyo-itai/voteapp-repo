@@ -40,6 +40,18 @@ def choice_serializer(choice) -> dict:
         "updated_at": choice["updated_at"]
         }
 
+# pollとchoiceをappendしたデータをシリアライズ
+def poll_choice_serializer(poll_choice) -> dict:
+    return{
+        "id": str(poll_choice["_id"]),
+        "title": poll_choice["title"],
+        "description": poll_choice["description"],
+        "choice_ids": poll_choice["choice_ids"],
+        "choices": poll_choice["choices"],
+        "created_at": poll_choice["created_at"],
+        "updated_at": poll_choice["updated_at"]
+        }
+
 # 100件TestModelを取得する処理
 async def db_get_tests() -> list:
     tests = []
@@ -119,4 +131,25 @@ async def db_create_choice(data: dict) -> Union[dict, bool]:
     if new_choice is not None:
         return choice_serializer(new_choice)
     else:
+        return False
+
+# PollModelとPollChoiceModelを連結して新しいデータ構造を作成する処理
+async def combine_poll_and_choices(poll_id: str) -> Union[dict, bool]:
+    poll = await collection_poll.find_one({"_id": ObjectId(poll_id)})
+    choices = []
+    for choice_id in poll["choice_ids"]:
+        choice = await collection_choice.find_one({"_id": ObjectId(choice_id)})
+        if choice is not None:
+            choices.append(choice_serializer(choice))
+        else:
+            # TODO Noneのときどうするか？
+            pass 
+
+    if len(choices) >= 2:
+        # pollにキーを追加
+        poll["choices"] = choices
+        
+        return poll_choice_serializer(poll)
+    else:
+        # 選択肢が2つ以上ない場合はFalseとする
         return False

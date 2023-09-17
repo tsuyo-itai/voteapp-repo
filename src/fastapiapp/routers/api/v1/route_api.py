@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from typing import List
 from starlette.status import HTTP_201_CREATED
 from schemas.Polls import PollModel, PollModelOutput, PollChoiceModel, PollChoiceModelOutput
-from database import db_get_polls, db_create_poll, db_create_choice, db_get_choices
+from database import db_get_polls, db_create_poll, db_create_choice, db_get_choices, combine_poll_and_choices
 
 '''
 /api/v1/ 階層のAPIを定義する
@@ -22,6 +22,26 @@ async def hello():
 async def get_polls(request: Request):
     res = await db_get_polls()
     return res
+
+# PollModelとChoiceModelを連結して 一覧取得
+@api_v1_router.get("/api/v1/pollchoices", summary="PollModelとPollChoiceModelを連結した一覧を取得します")
+async def get_polls_choices():
+    polls_choices = []
+    polls = await db_get_polls()
+    for poll in polls:
+        res = await combine_poll_and_choices(poll["id"])
+        if res is not False:
+            polls_choices.append(res)
+    return polls_choices
+
+# PollModelとChoiceModelを連結して 1件取得
+@api_v1_router.get("/api/v1/poll/{poll_id}", summary="PollModelとPollChoiceModelを連結した1件を取得します")
+async def get_single_polls_choices(poll_id: str):
+    res = await combine_poll_and_choices(poll_id)
+    if res is not False:
+        return res
+    raise HTTPException(
+        status_code=404, detail="Create poll and choice failed!")
 
 # PollModel作成
 @api_v1_router.post("/api/v1/polls", summary="PollModelを1件新規作成します", response_model=PollModelOutput)
