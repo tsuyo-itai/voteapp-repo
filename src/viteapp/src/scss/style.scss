@@ -107,13 +107,21 @@ header {
 //* 投票作成カード 関連 */
 
 .card-poll-edit {
-    padding: 5px;
+    padding: 20px 10px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 20px 40px;
     border-radius: 15px;
     overflow: hidden;
     position: relative; /* 親要素を相対位置指定 */
+
+    button {
+        font-weight: bold;
+        width: 120px;
+        background-color: #33a3a4;
+        color:#fff;
+        margin: 10px;
+    }
 }
 
 .card-poll-inputblock {
@@ -126,12 +134,14 @@ header {
     }
 }
 
-.poll-input {
+.poll-content-input {
     font-size: 18px;
     width: 95%;
     padding: 8px;
     margin-bottom: 12px;
     border: 2px solid #33a3a4;
     border-radius: 5px;
+    color:#333;
+    background-color: white;
 
 }
