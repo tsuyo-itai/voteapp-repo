@@ -5,6 +5,11 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   server: {
     host: '0.0.0.0', // ここにホスト名を指定
+    // ホットリロード監視
+    watch: {
+      include: [path.resolve(__dirname, 'src/**/*')],
+      exclude: ['node_modules']
+    }
   },
   plugins: [vue()],
 
