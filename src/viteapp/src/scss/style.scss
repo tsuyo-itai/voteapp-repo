@@ -1,3 +1,20 @@
+@mixin card-styles {
+    padding: 20px 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px 40px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+// 一般的なブロック要素 -> RGBと透明度を引数に持つ
+@mixin common-block($red, $green, $blue, $alpha) {
+    background-color: rgba($red, $green, $blue, $alpha);
+    width: 100%;
+    margin: 0 25px;
+}
+
 //* ヘッダー 関連 */
 
 header {
@@ -45,7 +62,7 @@ header {
     }
 }
 
-//* 投票一覧カード 関連 */
+//* 投票一覧 関連 */
 
 .card-poll-list {
     background-color: #fff;
@@ -108,16 +125,10 @@ header {
     height: 100%;
 }
 
-//* 投票作成カード 関連 */
+//* 投票作成 関連 */
 
 .card-poll-edit {
-    padding: 20px 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 20px 40px;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative; /* 親要素を相対位置指定 */
+    @include card-styles;
 
     button {
         font-weight: bold;
@@ -147,4 +158,99 @@ header {
     border-radius: 5px;
     color:#333;
     background-color: white;
+}
+
+//* 投票画面　関連 */
+
+.card-poll-view {
+    @include card-styles;
+
+    h2 {
+        text-align: left;
+        position: relative;
+        padding: 1rem .5rem;
+    }
+      
+    h2:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        content: '';
+        border-radius: 3px;
+        background-image: -webkit-gradient(linear, right top, left top, from(#33a3a4), to(#00fda9));
+        background-image: -webkit-linear-gradient(right, #33a3a4 0%, #00fda9 100%);
+        background-image: linear-gradient(to left, #33a3a4 0%, #00fda9 100%);
+    }
+
+    h3 {
+        text-align: left;
+    }
+}
+
+.choices-container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    margin: 60px auto; /* 中央揃え */
+    display: flex;
+    justify-content: center;
+}
+
+.one-choice-container {
+    margin: 15px auto;
+    padding: 40px;
+}
+
+.first-choice-block {
+    @include common-block(52, 152, 219, 0.1);
+    border: 2px solid #2980b9; /* 枠線の設定（太さと色） */
+    border-radius: 25px;
+
+    button {
+        background-color: #3498db;
+        color:white;
+        font-weight: bold; /* フォントの太さ */
+        border: 2px solid #2980b9; /* 枠線の設定（太さと色） */
+        box-shadow: 0 4px 6px rgba(0, 0, 0.2, 0.2); /* 影の設定 */
+        transition: background-color 0.3s ease; /* ホバー時のトランジション */
+    }
+    button:hover {
+        background-color: #2980b9; /* ホバー時の背景色 */
+    }
+}
+
+.second-choice-block {
+    @include common-block(231, 76, 60, 0.1);
+    border: 2px solid #c0392b; /* 枠線の設定（太さと色） */
+    border-radius: 25px;
+
+    button {
+        background-color: #e74c3c;
+        color:white;
+        font-weight: bold; /* フォントの太さ */
+        border: 2px solid #c0392b; /* 枠線の設定（太さと色） */
+        box-shadow: 0 4px 6px rgba(0, 0, 0.2, 0.2); /* 影の設定 */
+        transition: background-color 0.3s ease; /* ホバー時のトランジション */
+    }
+    button:hover {
+        background-color: #c0392b; /* ホバー時の背景色 */
+    }
+}
+
+.copy-url-block {
+    justify-content: center;
+    display: flex;
+    align-items: center; /* 縦 中央揃え */
+
+    input {
+        margin: 0 12px;
+        font-size: 14px;
+        font-weight: bold; /* フォントの太さ */
+        border: 2px solid #33a3a4;
+        border-radius: 5px;
+        width: 50%;
+        height: 28px;
+    }
 }

@@ -13,7 +13,7 @@ const secretKey = 'mysecretkey';
 
 // const randomToken = route.params.random_token
 const randomToken = route.params.random_token;
-console.log(randomToken)
+const currentUrl = 'http://' + window.location.hostname + ':' + window.location.port + route.fullPath
 
 const PollChoice = ref([])
 
@@ -40,6 +40,19 @@ function getPollChoiceOne() {
     });
 }
 
+// URLをクリップボードにコピーする
+function copyToClipboard() {
+    // クリップボードAPIを使用してテキストをクリップボードにコピー
+    navigator.clipboard.writeText(currentUrl)
+    .then(() => {
+        alert("URLがクリップボードにコピーされました。");
+    })
+    .catch(err => {
+        console.error("クリップボードへのコピーに失敗しました:", err);
+        alert("URLのコピーに失敗しました。");
+    });
+}
+
 onMounted(() => { getPollChoiceOne()
     console.log(PollChoice)
 
@@ -49,6 +62,21 @@ onMounted(() => { getPollChoiceOne()
 
 <template>
     <h2>投票作成が完了しました画面</h2>
-    <h3>{{ PollChoice.title }}</h3>
-    <h4>{{ PollChoice.description }}</h4>
+    <div class="card-poll-view">
+        <h2>{{ PollChoice.title }}</h2>
+        <h3>{{ PollChoice.description }}</h3>
+        <div class="choices-container">
+            <div class="one-choice-container" v-for="(choice, index) in PollChoice.choices" :key="choice.id" :class="{ 'first-choice-block': index === 0, 'second-choice-block': index === 1 }">
+                <h4>{{ choice.name }}</h4>
+                <p>{{ choice.description }}</p>
+                <p>{{ choice.count }}</p>
+                <button>投票する</button>
+            </div>
+        </div>
+        <div class="copy-url-block">
+            <p>URLを共有する</p>
+            <input v-on:click="copyToClipboard" :value="currentUrl" readonly />
+            <button v-on:click="copyToClipboard">コピー</button>
+        </div>
+    </div>
 </template>
