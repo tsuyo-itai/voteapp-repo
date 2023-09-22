@@ -1,3 +1,113 @@
+<script setup>
+import { ref, inject, onMounted, computed } from 'vue';
+const axios = inject('axios')
+
+const apiPollChoiceList = ref([])
+const debugPollList = [
+            {
+                "id": "6506364fc0e085863e8eeb72",
+                "title": "全日本エチエチ大会",
+                "description": "エロい女を決めよう",
+                "choice_ids": [
+                "650635eac0e085863e8eeb70",
+                "65063607c0e085863e8eeb71"
+                ],
+                "choices": [
+                {
+                    "id": "650635eac0e085863e8eeb70",
+                    "name": "hogeA",
+                    "description": "hogehogehogehoge ok!!",
+                    "image_file": "",
+                    "count": 12
+                },
+                {
+                    "id": "65063607c0e085863e8eeb71",
+                    "name": "hugaB",
+                    "description": "hugahugahuga ok!!",
+                    "image_file": "",
+                    "count": 47
+                }
+                ]
+            },
+            {
+                "id": "650636d9c0e085863e8eeb72",
+                "title": "大分大学ミスコン",
+                "description": "あああ",
+                "choice_ids": [
+                "650635eac02015863e8eeb70",
+                "65063607988085863e8eeb71"
+                ],
+                "choices": [
+                {
+                    "id": "650635eac02015863e8eeb70",
+                    "name": "斎藤あかり",
+                    "description": "hogehogehogehoge ok!!",
+                    "image_file": "",
+                    "count": 108
+                },
+                {
+                    "id": "65063607988085863e8eeb71",
+                    "name": "佐藤栞",
+                    "description": "hugahugahuga ok!!",
+                    "image_file": "",
+                    "count": 120
+                }
+                ]
+            },
+            {
+                "id": "6506363820e085863e8eeb72",
+                "title": "でっかいメロン",
+                "description": "うん",
+                "choice_ids": [
+                "65063102c0e085863e8eeb70",
+                "65063607c03335863e8eeb71"
+                ],
+                "choices": [
+                {
+                    "id": "65063102c0e085863e8eeb70",
+                    "name": "ああああ",
+                    "description": "hogehogehogehoge ok!!",
+                    "image_file": "",
+                    "count": 3290
+                },
+                {
+                    "id": "65063607c03335863e8eeb71",
+                    "name": "すごいいね",
+                    "description": "hugahugahuga ok!!",
+                    "image_file": "",
+                    "count": 880
+                }
+                ]
+            }
+        ]
+
+function computedWidth(value1, value2) {
+    const total = value1 + value2;
+    if (total === 0) {
+        return 0; // 投票がない場合は0%
+    }
+
+    const percentage = (value1 / total) * 100; // value1の割合を計算
+
+    return percentage; // パーセンテージ
+}
+
+// パーセンテージ算出
+function calcPercent(value, total) {
+    return (value / total) * 100;
+}
+
+// 投票一覧を取得する
+function getPollChoiceList() {
+    axios.get('/api/v1/pollchoices').then((response) => {
+    console.log(response.data);
+    apiPollChoiceList.value = response.data
+    });
+}
+
+onMounted(() => { getPollChoiceList() });
+
+</script>
 
 <template>
   <h1>今話題の投票</h1>
@@ -21,120 +131,3 @@
   </div>
 
 </template>
-
-
-<script>
-  export default {
-    data() {
-        return {
-            apiPollChoiceList:[],
-            debugPollList: [
-                {
-                    "id": "6506364fc0e085863e8eeb72",
-                    "title": "全日本エチエチ大会",
-                    "description": "エロい女を決めよう",
-                    "choice_ids": [
-                    "650635eac0e085863e8eeb70",
-                    "65063607c0e085863e8eeb71"
-                    ],
-                    "choices": [
-                    {
-                        "id": "650635eac0e085863e8eeb70",
-                        "name": "hogeA",
-                        "description": "hogehogehogehoge ok!!",
-                        "image_file": "",
-                        "count": 12
-                    },
-                    {
-                        "id": "65063607c0e085863e8eeb71",
-                        "name": "hugaB",
-                        "description": "hugahugahuga ok!!",
-                        "image_file": "",
-                        "count": 47
-                    }
-                    ]
-                },
-                {
-                    "id": "650636d9c0e085863e8eeb72",
-                    "title": "大分大学ミスコン",
-                    "description": "あああ",
-                    "choice_ids": [
-                    "650635eac02015863e8eeb70",
-                    "65063607988085863e8eeb71"
-                    ],
-                    "choices": [
-                    {
-                        "id": "650635eac02015863e8eeb70",
-                        "name": "斎藤あかり",
-                        "description": "hogehogehogehoge ok!!",
-                        "image_file": "",
-                        "count": 108
-                    },
-                    {
-                        "id": "65063607988085863e8eeb71",
-                        "name": "佐藤栞",
-                        "description": "hugahugahuga ok!!",
-                        "image_file": "",
-                        "count": 120
-                    }
-                    ]
-                },
-                {
-                    "id": "6506363820e085863e8eeb72",
-                    "title": "でっかいメロン",
-                    "description": "うん",
-                    "choice_ids": [
-                    "65063102c0e085863e8eeb70",
-                    "65063607c03335863e8eeb71"
-                    ],
-                    "choices": [
-                    {
-                        "id": "65063102c0e085863e8eeb70",
-                        "name": "ああああ",
-                        "description": "hogehogehogehoge ok!!",
-                        "image_file": "",
-                        "count": 3290
-                    },
-                    {
-                        "id": "65063607c03335863e8eeb71",
-                        "name": "すごいいね",
-                        "description": "hugahugahuga ok!!",
-                        "image_file": "",
-                        "count": 880
-                    }
-                    ]
-                }
-            ]
-        };
-    },
-    computed: {
-      computedWidth() {
-        return (value1, value2) => {
-          const total = value1 + value2;
-          if (total === 0) {
-            return 0; // 投票がない場合は0%
-          }
-          const percentage = (value1 / total) * 100; // value1の割合を計算
-          return percentage; // パーセンテージ
-        };
-      },
-    },
-    methods: {
-      // 投票一覧を取得する
-      getPollChoiceList() {
-        this.axios.get("/api/v1/pollchoices").then((response) => {
-          console.log(response.data);
-          this.apiPollChoiceList = response.data;
-        });
-      },
-      // ２つの値から割合を算出
-      calcPercent(value, total){
-        return (value / total) * 100;
-      }
-    },
-    mounted() {
-      this.getPollChoiceList();
-    }
-  }
-
-</script>

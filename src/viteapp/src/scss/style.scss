@@ -8,18 +8,22 @@ header {
     align-items: center;
     padding: 0 20px; /* 左右のパディング */
     color: #fff; /* テキスト色 */
-  }
-  
-  /* ヘッダー内のロゴまたはタイトルのスタイル */
-  .header-logo {
+}
+
+/* ヘッダー内のロゴまたはタイトルのスタイル */
+.header-logo {
     font-size: 24px; /* フォントサイズ */
     font-weight: bold; /* フォントの太さ */
     text-decoration: none; /* 下線を削除 */
     color: #fff; /* ロゴのテキスト色 */
-  }
-  
-  /* ナビゲーションメニューのスタイル */
-  .nav-menu {
+
+    &:hover {
+        color: #33a3a4; /* ホバー時のテキスト色 */
+    }
+}
+
+/* ナビゲーションメニューのスタイル */
+.nav-menu {
     list-style: none; /* リストスタイルを削除 */
     margin: 0;
     padding: 0;
@@ -39,7 +43,7 @@ header {
             color: #33a3a4; /* ホバー時のテキスト色 */
         }
     }
-  }
+}
 
 //* 投票一覧カード 関連 */
 
@@ -92,7 +96,7 @@ header {
     background-color: #ccc;
     margin: 0 auto; /* 中央揃え */
     display: flex;
-  }
+}
   
 .pollbar-segment-1 {
     background-color: #3498db;
@@ -143,5 +147,4 @@ header {
     border-radius: 5px;
     color:#333;
     background-color: white;
-
 }
