@@ -21,6 +21,7 @@ services:
       - ./viteapp:/viteapp
     ports:
       - 5173:5173 # 本番で動かす際はコメントアウト
+      - 4173:4173 # ビルドしたVueの動作用 本番で動かす際はコメントアウト
     tty: true
 
   db:
