@@ -2,7 +2,8 @@
 <!-- TODO 作成時にAPIを3回発行するのは思想としていかがなものか.. -->
 <script setup>
 import { ref, inject } from 'vue';
-import CryptoJS from 'crypto-js';
+import { createSafeEncryptedText } from '../utils/function'
+
 const axios = inject('axios')
 const router = inject('router')
 
@@ -13,22 +14,6 @@ const choiceNameA = ref('');
 const choiceDescriptionA = ref('');
 const choiceNameB = ref('');
 const choiceDescriptionB = ref('');
-
-// TODO: 環境変数へ
-// 暗号化キー（16バイト、32バイト、または64バイト）
-const secretKey = 'mysecretkey';
-
-// 暗号化文字列の作成
-function createSafeEncryptedText(text) {
-    // 1. 文字列を暗号化
-    const cipherText = CryptoJS.AES.encrypt(text, secretKey).toString();
-    // 2. 暗号文をBase64エンコード
-    const base64CipherText = btoa(cipherText);
-    // 3. '/' を取り除く
-    const safeEncryptedText = base64CipherText.replace(/\//g, '_'); // 例: '/' を '_' に置き換える
-
-    return safeEncryptedText;
-}
 
 // 投票タイトル・詳細をpostする
 async function sendPollContents(choiceId1, choiceId2) {
