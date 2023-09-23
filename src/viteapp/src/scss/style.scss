@@ -95,14 +95,33 @@ header {
 
 .card-content-poll-list {
     padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; // スムーズなトランジションを追加
+
+    &:hover {
+        // ホバー時のスタイルを定義します
+        background-color: #f0f0f0; // 例: ホバー時の背景色
+    }
+    .card-content-wrapper-poll-list {
+        background-color: #FFF;
+        display: flex; /* Flexbox を有効にする */
+        flex-direction: row; /* 要素を横に並べる */
+        align-items: center; /* 縦 中央揃え */
+        margin: 10px;
+        transition: background-color 0.3s ease; // スムーズなトランジションを追加
+    }
+    
+    &:hover .card-content-wrapper-poll-list {
+        // 親要素がホバーされたときに子要素もホバー状態に
+        background-color: #f0f0f0; // 例: ホバー時の背景色
+    }
 }
 
-.card-content-wrapper-poll-list {
-    background-color: #FFF;
-    display: flex; /* Flexbox を有効にする */
-    flex-direction: row; /* 要素を横に並べる */
-    align-items: center; /* 縦 中央揃え */
-    margin: 10px;
+.poll-not-found {
+    margin:120px auto;
+    h2 {
+        color:#33a3a4;
+    }
 }
 
 //* 投票一覧パーツ 関連 */
