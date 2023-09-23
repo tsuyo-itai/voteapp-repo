@@ -253,4 +253,24 @@ header {
         width: 50%;
         height: 28px;
     }
+//* 投票作成完了画面 関連 */
+.card-choice {
+    padding: 20px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px 40px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative; /* 親要素を相対位置指定 */
+}
+
+.choice-first {
+    background-color: #FFB6C1;
+}
+
+.choice-second {
+    background-color: #87CEFA;
+}
+
+.social-share-section a {
+    margin-right: 10px;
 }
