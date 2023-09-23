@@ -1,8 +1,10 @@
 <!-- ここらへん https://reffect.co.jp/vue/vue-js-input-v-model/-->
 <!-- TODO 作成時にAPIを3回発行するのは思想としていかがなものか.. -->
 <script setup>
-import axios from 'axios';
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
+import CryptoJS from 'crypto-js';
+const axios = inject('axios')
+const router = inject('router')
 
 const pollTitle = ref('');
 const pollDescription = ref('');
@@ -12,31 +14,43 @@ const choiceDescriptionA = ref('');
 const choiceNameB = ref('');
 const choiceDescriptionB = ref('');
 
-// MainView.jsで定義したものとは別物
-// TODO: 後々他のVueファイルもCompositionAPIの形式で書き直す
-const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8000', // APIサーバーの設定 (TODO:本番環境では環境変数から読み込むように)
-});
+// TODO: 環境変数へ
+// 暗号化キー（16バイト、32バイト、または64バイト）
+const secretKey = 'mysecretkey';
+
+// 暗号化文字列の作成
+function createSafeEncryptedText(text) {
+    // 1. 文字列を暗号化
+    const cipherText = CryptoJS.AES.encrypt(text, secretKey).toString();
+    // 2. 暗号文をBase64エンコード
+    const base64CipherText = btoa(cipherText);
+    // 3. '/' を取り除く
+    const safeEncryptedText = base64CipherText.replace(/\//g, '_'); // 例: '/' を '_' に置き換える
+
+    return safeEncryptedText;
+}
 
 // 投票タイトル・詳細をpostする
 async function sendPollContents(choiceId1, choiceId2) {
     try {
-        const response = await axiosInstance.post("/api/v1/polls", {
+        const response = await axios.post("/api/v1/polls", {
             title: pollTitle.value,
             description: pollDescription.value,
             choice_ids: [choiceId1, choiceId2],
         })
         console.log(response.data);
+        return response.data.id
     } catch (error){
         // TODO: エラーハンドリングをしっかりしよう
         console.error(error);
+        return null; // エラーハンドリング
     }
 }
 
 // 選択肢をpostする
 async function sendChoiceContents(name, description) {
     try {
-        const response = await axiosInstance.post("/api/v1/choices", {
+        const response = await axios.post("/api/v1/choices", {
             name: name.value,
             description: description.value,
             image_file: "",
@@ -55,9 +69,14 @@ async function createPoll() {
     const choiceId1 = await sendChoiceContents(choiceNameA, choiceDescriptionA)
     const choiceId2 = await sendChoiceContents(choiceNameB, choiceDescriptionB)
 
-    sendPollContents(choiceId1, choiceId2)
+    const pollId = await sendPollContents(choiceId1, choiceId2)
 
-    window.location.replace('/Poll');
+    // 投票idを暗号化した文字列をURLに使用
+    const url_suffix = createSafeEncryptedText(pollId)
+
+    // window.location.replace(`/Poll/${url_suffix}`);
+    router.push(`/Poll/${url_suffix}`)
+
 }
 
 </script>
