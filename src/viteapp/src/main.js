@@ -4,6 +4,7 @@ import './scss/style.scss'
 import App from './App.vue'
 import MainView from './components/MainView.vue'
 import EditPollView from './components/EditPollView.vue'
+import EditPollCompleteView from './components/EditPollComplete.vue'
 import PollView from './components/PollView.vue'
 import axios from 'axios';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -22,6 +23,7 @@ const router = createRouter({
     routes: [
       { path: '/', name: "root", component: MainView },
       { path: '/editPoll', name: "editPoll", component: EditPollView },
+      { path: '/editPollComplete', name: "editPollComplete", component: EditPollCompleteView },
       { path: '/Poll', name: "Poll", component: PollView }, //TODO パスはオリジナルURLとする 一旦適当に作成
     ],
 });
