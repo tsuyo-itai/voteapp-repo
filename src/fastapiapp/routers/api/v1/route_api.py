@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from typing import List
 from starlette.status import HTTP_201_CREATED
 from schemas.Polls import PollModel, PollModelOutput, PollChoiceModel, PollChoiceModelOutput
-from database import db_get_polls, db_create_poll, db_create_choice, db_get_choices, combine_poll_and_choices
+from database import db_get_polls, db_create_poll, db_create_choice, db_get_choices, combine_poll_and_choices, db_increase_choice_count
 
 '''
 /api/v1/ 階層のAPIを定義する
@@ -70,3 +70,12 @@ async def create_choice(request: Request, response: Response, data: PollChoiceMo
         return res
     raise HTTPException(
         status_code=404, detail="Create choice failed!")
+
+# PollChoiceModel カウントアップ
+@api_v1_router.put("/api/v1/choices/{choice_id}/increase", summary="Increase count of a specific PollChoiceModel by 1")
+async def increase_choice_count(choice_id: str):
+    res = await db_increase_choice_count(choice_id)
+    if res:
+        return {"status": "success", "message": f"Choice {choice_id} count increased by 1"}
+    raise HTTPException(
+        status_code=404, detail=f"Failed to increase count for choice {choice_id}!")

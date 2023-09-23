@@ -153,3 +153,19 @@ async def combine_poll_and_choices(poll_id: str) -> Union[dict, bool]:
     else:
         # 選択肢が2つ以上ない場合はFalseとする
         return False
+
+# PollChoiceModelのcountを1つ増やす処理
+async def db_increase_choice_count(choice_id: str) -> bool:
+    choice = await collection_choice.find_one({"_id": ObjectId(choice_id)})
+    if choice:
+        # count値を取得し1増やす
+        updated_count = choice.get("count", 0) + 1
+        # 更新する
+        updated_choice = await collection_choice.update_one(
+            {"_id": ObjectId(choice_id)},
+            {"$set": {"count": updated_count}}
+        )
+        # 更新が成功した場合、Trueを返す
+        if updated_choice.modified_count > 0:
+            return True
+    return False
