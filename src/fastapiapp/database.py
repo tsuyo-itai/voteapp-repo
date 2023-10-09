@@ -1,9 +1,15 @@
 import motor.motor_asyncio
 from typing import Union
 from bson import ObjectId
+import os
 
 # DBインスタンスの作成
-client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:password@db:27017/")  # Docker Composeのサービス名を指定
+try:
+    DB_PATH = os.environ['DB_PATH']
+except KeyError:
+    DB_PATH = "mongodb://root:password@db:27017/"
+
+client = motor.motor_asyncio.AsyncIOMotorClient(DB_PATH)  # Docker Composeのサービス名を指定
 db = client.develop_db
 collection_test = db.test
 collection_poll = db.poll

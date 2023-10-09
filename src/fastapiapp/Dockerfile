@@ -9,7 +9,8 @@ ENV LANG=C.UTF-8 \
 
 # 一旦動かなくなるのもめんどくさいので「--upgrade」は行わない
 # RUN pip3 install --no-cache-dir --upgrade -r /fastapiapp/requirements.txt
-RUN pip3 install --no-cache-dir -r /fastapiapp/requirements.txt
+RUN pip3 install --no-cache-dir -r /fastapiapp/requirements.txt && \
+    apt update && apt install -y zip unzip
 
 
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
