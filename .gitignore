@@ -1,0 +1,3 @@
+infra/lib/*
+infra/lambda_function.zip
+infra/lambda_function
