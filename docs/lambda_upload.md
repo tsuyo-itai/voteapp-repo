@@ -1,5 +1,5 @@
 # バックエンドインフラ構成
-AWS lambda + DocumentDB
+AWS API gateway + lambda + DocumentDB
 
 # デプロイ
 
@@ -34,3 +34,6 @@ aws s3 rb s3://<s3-bucket-name>
 
 ## cloudformation
 インフラの構成はcloudformationを使用する
+
+バックエンドを構築する際は`backend_template.yaml`を使用してAWS Cloudformationから構築を行う  
+(事前に上記S3へコードをアップロードしておき、CFNのテンプレートパラメータからS３バケットを指定する)
